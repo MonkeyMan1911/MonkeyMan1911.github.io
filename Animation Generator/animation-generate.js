@@ -2,7 +2,7 @@ const generateBtn = document.getElementById("generate")
 
 generateBtn.addEventListener("click", () => {
     const name = document.getElementById("a-name").value
-    const dpf = document.getElementById("dpf").value
+    const dpf = parseFloat(document.getElementById("dpf").value)
     const strategy = document.getElementById("strategy").value
     const outputType = document.getElementById("output-type").value
     const inputs = [name, dpf, strategy, outputType]
@@ -12,8 +12,14 @@ generateBtn.addEventListener("click", () => {
         return;
     }
 
+
+    frames.forEach(frame => {
+        frame.duration = dpf
+    })
+
+    const animationData = {name, frameCoordinates: frames, durationPerFrame: dpf, strategy}
+
     if (outputType === "json") {
-        const animationData = {name, frameCoordinates: frames, durationPerFrame: dpf, strategy}
         const jsonStr = JSON.stringify(animationData, null, 4)
 
         const blob = new Blob([jsonStr], {type: "application/json"})
@@ -28,13 +34,13 @@ generateBtn.addEventListener("click", () => {
         URL.revokeObjectURL(url);
     }
     else {
-        const animationData = {name, frameCoordinates: frames, durationPerFrame: dpf, strategy}
-        const tsCode = `const ${name} = ex.Animation.fromSpriteSheetCoordinates({
+        const tsCode = ` // You can edit the duration each frame as you need
+const ${name} = ex.Animation.fromSpriteSheetCoordinates({
     spriteSheet: "REPLACE WITH YOUR SPRITESHEET",
     durationPerFrame: ${animationData.durationPerFrame},
-    frameCoordinates: ${JSON.stringify(animationData.frameCoordinates)},
+    frameCoordinates: ${JSON.stringify(animationData.frameCoordinates, null, 8)},
     strategy: AnimationStrategy.${animationData.strategy}
-    })`
+})`
         const blob = new Blob([tsCode], { type: 'text/typescript' });
         const url = URL.createObjectURL(blob);
 

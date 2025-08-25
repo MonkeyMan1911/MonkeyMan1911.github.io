@@ -45,13 +45,13 @@ function drawPieces() {
             output.appendChild(canvas);
         }
     }
-}
+} 
 
 // Toggle select/deselect
 function toggleSelection(canvas) {
     if (canvas.dataset.selected === "false") {
         canvas.dataset.selected = "true";
-        frames.push({ x: canvas.dataset.x, y: canvas.dataset.y });
+        frames.push({ x: parseFloat(canvas.dataset.x), y: parseFloat(canvas.dataset.y) });
         canvas.style.backgroundColor = "blue";
     } else {
         const index = frames.findIndex(
