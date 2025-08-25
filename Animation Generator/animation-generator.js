@@ -29,7 +29,7 @@ function drawPieces() {
             const ctx = canvas.getContext("2d");
             ctx.imageSmoothingEnabled = false;
 
-            canvas.style.backgroundColor = "black";
+            canvas.style.backgroundColor = "white";
             canvas.style.margin = "5px";
 
             // Draw slice scaled up
@@ -58,7 +58,7 @@ function toggleSelection(canvas) {
             (f) => f.x === canvas.dataset.x && f.y === canvas.dataset.y
         );
         if (index > -1) frames.splice(index, 1);
-        canvas.style.backgroundColor = "black";
+        canvas.style.backgroundColor = "white";
         canvas.dataset.selected = "false";
     }
     console.log(frames);

@@ -1,0 +1,23 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+.tab-manager {
+    margin-bottom: 10px;
+    background-color: white;
+    top: 0%;
+    height: 40px;
+}
+
+.tab {
+    background-color: rgb(29, 29, 29);
+    color: white;
+    height: 100%;
+    width: 90px;
+    border: none;
+}
+
+.active {
+    background-color: rgb(56, 56, 56);
+}

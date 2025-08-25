@@ -4,30 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<input type="file" id="fileInput">
-<input type="number" placeholder="Sprite Width" id="s-width" value="16">
-<input type="number" placeholder="Sprite Height" id="s-height" value="16">
-<input type="text" placeholder="Animation Name" id="a-name">
-<input type="number" placeholder="Duration/Frame (ms)" id="dpf">
-<select id="strategy">
-    <option value="" disabled selected>--Choose A Strategy--</option>
-    <option value="End">End</option>
-    <option value="Freeze">Freeze</option>
-    <option value="Loop">Loop</option>
-    <option value="PingPong">Pingpong</option>
-</select>
-<select id="output-type">
-    <option value="" disabled selected>--Choose An Output Type--</option>
-    <option value="json">Json</option>
-    <option value="typescript">TypeScript</option>
-</select>
-<button id="generate">Generate</button>
 
-<div id="image"></div>
+    <div class="tab-manager">
+    <button class="tab active">Current Tab</button>
+    </div>
 
-<script src="animation-generator.js"></script>
-<script src="animation-generate.js"></script>
+    <input type="file" id="fileInput">
+    <input type="number" placeholder="Sprite Width" id="s-width" value="16">
+    <input type="number" placeholder="Sprite Height" id="s-height" value="16">
+    <input type="text" placeholder="Animation Name" id="a-name">
+    <input type="number" placeholder="Duration/Frame (ms)" id="dpf">
+    <select id="strategy">
+        <option value="" disabled selected>--Choose A Strategy--</option>
+        <option value="End">End</option>
+        <option value="Freeze">Freeze</option>
+        <option value="Loop">Loop</option>
+        <option value="PingPong">Pingpong</option>
+    </select>
+    <select id="output-type">
+        <option value="" disabled selected>--Choose An Output Type--</option>
+        <option value="json">Json</option>
+        <option value="typescript">TypeScript</option>
+    </select>
+    <button id="generate">Generate</button>
+
+    <div id="image"></div>
+
+    <script src="animation-generator.js"></script>
+    <script src="animation-generate.js"></script>
 </body>
 </html>
