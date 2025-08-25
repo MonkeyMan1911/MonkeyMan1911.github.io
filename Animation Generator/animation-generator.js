@@ -4,7 +4,7 @@ const widthInput = document.getElementById("s-width");
 const heightInput = document.getElementById("s-height");
 
 let img = null;
-let frames = [1, 2];
+let frames = [];
 
 // Main function to slice + draw
 function drawPieces() {
