@@ -20,14 +20,29 @@ generateBtn.addEventListener("click", () => {
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "animationData.json"; // filename
+        a.download = "animationData.json"; 
         document.body.appendChild(a);
         a.click();
 
-        // Cleanup
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
     }
+    else {
+        const animationData = {name, frameCoordinates: frames, durationPerFrame: dpf, strategy}
+        const tsCode = `const ${name} = ex.Animation.fromSpriteSheetCoordinates({
+    spriteSheet: "REPLACE WITH YOUR SPRITESHEET",
+    durationPerFrame: ${animationData.durationPerFrame},
+    frameCoordinates: ${JSON.stringify(animationData.frameCoordinates)},
+    strategy: "${animationData.strategy}"
+    })`
+        const blob = new Blob([tsCode], { type: 'text/typescript' });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'animation.ts'; 
+        a.click();
+
+        URL.revokeObjectURL(url);
+    }
 })
-
-
