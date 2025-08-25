@@ -33,7 +33,7 @@ generateBtn.addEventListener("click", () => {
     spriteSheet: "REPLACE WITH YOUR SPRITESHEET",
     durationPerFrame: ${animationData.durationPerFrame},
     frameCoordinates: ${JSON.stringify(animationData.frameCoordinates)},
-    strategy: "${animationData.strategy}"
+    strategy: AnimationStrategy.${animationData.strategy}
     })`
         const blob = new Blob([tsCode], { type: 'text/typescript' });
         const url = URL.createObjectURL(blob);
