@@ -11,9 +11,10 @@ function generateOne(body, frames) {
         return;
     }
 
-
     frames.forEach(frame => {
-        frame.duration = dpf
+        if (!frame.duration) {
+            frame.duration = dpf
+        }
     })
 
     const animationData = {name, frameCoordinates: frames, durationPerFrame: dpf, strategy}

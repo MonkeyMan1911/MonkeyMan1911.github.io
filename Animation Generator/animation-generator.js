@@ -44,6 +44,10 @@ function drawPieces() {
 
             // Toggle select on click
             canvas.addEventListener("click", () => toggleSelection(canvas));
+            canvas.addEventListener("contextmenu", (event) => {
+                event.preventDefault()
+                customDuration(canvas)
+            })
 
             output.appendChild(canvas);
         }
@@ -53,10 +57,11 @@ function drawPieces() {
 // Toggle select/deselect
 function toggleSelection(canvas) {
     if (canvas.dataset.selected === "false") {
-        canvas.dataset.selected = "true";
         frames.push({ x: parseFloat(canvas.dataset.x), y: parseFloat(canvas.dataset.y) });
         canvas.style.backgroundColor = "blue";
+        canvas.dataset.selected = "true";
         body.dataset.frames = JSON.stringify(frames)
+        console.log(canvas.dataset.duration)
     } 
     else {
         const index = frames.findIndex(
@@ -69,6 +74,115 @@ function toggleSelection(canvas) {
     }
     console.log(frames);
 }
+function customDuration(canvas) {
+    function createOverlay(defaultValue = "") {
+        return new Promise((resolve) => {
+            const overlay = document.createElement("div");
+            Object.assign(overlay.style, {
+                position: "fixed",
+                top: "0",
+                left: "0",
+                width: "100%",
+                height: "100%",
+                backgroundColor: "rgba(0,0,0,0.5)",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                zIndex: "9999"
+            });
+
+            const popup = document.createElement("div");
+            Object.assign(popup.style, {
+                background: "white",
+                padding: "20px",
+                borderRadius: "8px",
+                textAlign: "center",
+                minWidth: "200px"
+            });
+
+            const input = document.createElement("input");
+            input.type = "number";
+            input.placeholder = "Duration (ms)";
+            input.style.marginBottom = "10px";
+            input.style.width = "100%";
+            if (defaultValue) input.value = defaultValue;
+
+            const okBtn = document.createElement("button");
+            okBtn.textContent = "OK";
+            okBtn.style.marginRight = "10px";
+
+            const cancelBtn = document.createElement("button");
+            cancelBtn.textContent = "Cancel";
+
+            okBtn.onclick = () => {
+                document.body.removeChild(overlay);
+                resolve({ action: "ok", value: input.value });
+            };
+
+            cancelBtn.onclick = () => {
+                document.body.removeChild(overlay);
+                resolve({ action: "cancel" });
+            };
+
+            popup.appendChild(input);
+            popup.appendChild(document.createElement("br"));
+            popup.appendChild(okBtn);
+            popup.appendChild(cancelBtn);
+            overlay.appendChild(popup);
+            document.body.appendChild(overlay);
+        });
+    }
+
+    // Main logic, waits until user chooses
+    (async () => {
+        const defaultVal = canvas.dataset.selected === "true" ? canvas.dataset.duration : "";
+        const result = await createOverlay(defaultVal);
+
+        if (result.action === "ok" && result.value) {
+            const index = frames.findIndex(
+                (f) => f.x === parseFloat(canvas.dataset.x) && f.y === parseFloat(canvas.dataset.y)
+            );
+            if (index > -1) { frames.splice(index, 1) };
+            frames.push({
+                x: parseFloat(canvas.dataset.x),
+                y: parseFloat(canvas.dataset.y),
+                duration: parseFloat(result.value)
+            });
+            canvas.dataset.duration = parseFloat(result.value);
+            canvas.style.backgroundColor = "red";
+            canvas.dataset.selected = "true";
+            console.log(frames)
+        } else if (result.action === "ok") {
+            const index = frames.findIndex(
+                (f) => f.x === parseFloat(canvas.dataset.x) && f.y === parseFloat(canvas.dataset.y)
+            );
+            if (index > -1) { frames.splice(index, 1) };
+            frames.push({
+                x: parseFloat(canvas.dataset.x),
+                y: parseFloat(canvas.dataset.y)
+            });
+            canvas.style.backgroundColor = "blue";
+            canvas.dataset.selected = "true";
+            console.log(frames);
+        } else if (result.action === "cancel" && canvas.dataset.selected !== "true") {
+            // first-time cancel = still add a frame
+            const index = frames.findIndex(
+                (f) => f.x === parseFloat(canvas.dataset.x) && f.y === parseFloat(canvas.dataset.y)
+            );
+            if (index > -1) { frames.splice(index, 1) };    
+            frames.push({
+                x: parseFloat(canvas.dataset.x),
+                y: parseFloat(canvas.dataset.y)
+            });
+            canvas.style.backgroundColor = "blue";
+            canvas.dataset.selected = "true";
+            console.log(frames);
+        }
+
+        body.dataset.frames = JSON.stringify(frames);
+    })();
+}
+
 
 // Load file
 fileInput.addEventListener("change", (e) => {

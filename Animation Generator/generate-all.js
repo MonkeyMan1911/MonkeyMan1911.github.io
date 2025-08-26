@@ -11,7 +11,9 @@ function generateAll() {
         
         const frames = JSON.parse(body.dataset.frames)
         frames.forEach(frame => {
-            frame.duration = dpf
+            if (!frame.duration) {
+                frame.duration = dpf
+            }
         })
 
         if (inputs.some(input => input === "") || frames.length === 0) {
@@ -39,7 +41,7 @@ function generateAll() {
         URL.revokeObjectURL(url);
     }
 
-    else {
+    else if (genAllBtn.value === "typescript") {
         // Build TypeScript code by looping animations
         let tsCode = `// You can edit the duration of each frame if needed\n\n`
 
