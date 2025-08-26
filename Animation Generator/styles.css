@@ -3,21 +3,65 @@ body {
     color: white;
 }
 
+button:hover, input:hover, select:hover, option:hover {
+    cursor: pointer;
+}
+
 .tab-manager {
     margin-bottom: 10px;
-    background-color: white;
+    background-color: rgb(167, 167, 167);
     top: 0%;
     height: 40px;
+    display: flex;
 }
 
 .tab {
     background-color: rgb(29, 29, 29);
     color: white;
     height: 100%;
-    width: 90px;
+    width: 150px;
     border: none;
+    padding: 0;
+    float: left;
+    text-align: left;
+    padding-left: 20px;
+    border-right: 2px solid white;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.close-tab {
+    color: red;
+    font-weight: bold;
+    font-size: large;
+}
+.close-tab:hover {
+    color: white;
 }
 
 .active {
     background-color: rgb(56, 56, 56);
+    border: none;
+}
+
+.add-tab {
+    font-size: 27px;
+    border: none;
+    background-color: transparent;
+    color: whitesmoke;
+}
+.add-tab:hover {
+    color: black;
+}
+
+.generate-all {
+    background-color: rgb(23, 212, 23);
+    border: none;
+    position: absolute;
+    right: 0;
+    align-self: center;
+    height: 40px;
+    font-weight: bold;
 }

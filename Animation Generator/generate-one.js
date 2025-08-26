@@ -1,14 +1,13 @@
-const generateBtn = document.getElementById("generate")
-
-generateBtn.addEventListener("click", () => {
-    const name = document.getElementById("a-name").value
-    const dpf = parseFloat(document.getElementById("dpf").value)
-    const strategy = document.getElementById("strategy").value
-    const outputType = document.getElementById("output-type").value
+function generateOne(body, frames) {
+    const name = body.querySelector("#a-name").value
+    const dpf = parseFloat(body.querySelector("#dpf").value)
+    const strategy = body.querySelector("#strategy").value
+    const outputType = body.querySelector("#output-type").value
     const inputs = [name, dpf, strategy, outputType]
     
     if (inputs.some(input => input === "") || frames.length === 0) {
         console.log("missing input");
+        console.log(frames)
         return;
     }
 
@@ -50,5 +49,5 @@ const ${name} = ex.Animation.fromSpriteSheetCoordinates({
         a.click();
 
         URL.revokeObjectURL(url);
-    }
-})
+    }  
+}

@@ -1,7 +1,10 @@
-const fileInput = document.getElementById("fileInput");
-const output = document.getElementById("image");
-const widthInput = document.getElementById("s-width");
-const heightInput = document.getElementById("s-height");
+function init(body) {
+
+const fileInput = body.querySelector("#fileInput");
+const output = body.querySelector("#image");
+const widthInput = body.querySelector("#s-width");
+const heightInput = body.querySelector("#s-height"); 
+const generateButton = body.querySelector("#generate")
 
 let img = null;
 let frames = [];
@@ -29,7 +32,7 @@ function drawPieces() {
             const ctx = canvas.getContext("2d");
             ctx.imageSmoothingEnabled = false;
 
-            canvas.style.backgroundColor = "white";
+            canvas.style.backgroundColor = "rgb(29, 29, 29)";
             canvas.style.margin = "5px";
 
             // Draw slice scaled up
@@ -53,13 +56,16 @@ function toggleSelection(canvas) {
         canvas.dataset.selected = "true";
         frames.push({ x: parseFloat(canvas.dataset.x), y: parseFloat(canvas.dataset.y) });
         canvas.style.backgroundColor = "blue";
-    } else {
+        body.dataset.frames = JSON.stringify(frames)
+    } 
+    else {
         const index = frames.findIndex(
-            (f) => f.x === canvas.dataset.x && f.y === canvas.dataset.y
+            (f) => f.x === parseFloat(canvas.dataset.x) && f.y === parseFloat(canvas.dataset.y)
         );
-        if (index > -1) frames.splice(index, 1);
-        canvas.style.backgroundColor = "white";
+        if (index > -1) { frames.splice(index, 1) };
+        canvas.style.backgroundColor = "rgb(29, 29, 29)";
         canvas.dataset.selected = "false";
+        body.dataset.frames = JSON.stringify(frames)
     }
     console.log(frames);
 }
@@ -77,3 +83,10 @@ fileInput.addEventListener("change", (e) => {
 // Re-draw when inputs change
 widthInput.addEventListener("input", drawPieces);
 heightInput.addEventListener("input", drawPieces);
+
+
+generateButton.addEventListener("click", () => { generateOne(body, frames) })
+}
+
+const startingBody = document.querySelector(".tab-body")
+init(startingBody)

@@ -10,31 +10,45 @@
 <body>
 
     <div class="tab-manager">
-    <button class="tab active">Current Tab</button>
+        <button class="tab active" id="tab-1">
+            Current Tab
+            <span class="close-tab" id="close-1">x</span>
+        </button>
+        <button class="add-tab"> + </button>
+
+
+        <button class="generate-all">Generate All
+        </button>
     </div>
 
-    <input type="file" id="fileInput">
-    <input type="number" placeholder="Sprite Width" id="s-width" value="16">
-    <input type="number" placeholder="Sprite Height" id="s-height" value="16">
-    <input type="text" placeholder="Animation Name" id="a-name">
-    <input type="number" placeholder="Duration/Frame (ms)" id="dpf">
-    <select id="strategy">
-        <option value="" disabled selected>--Choose A Strategy--</option>
-        <option value="End">End</option>
-        <option value="Freeze">Freeze</option>
-        <option value="Loop">Loop</option>
-        <option value="PingPong">Pingpong</option>
-    </select>
-    <select id="output-type">
-        <option value="" disabled selected>--Choose An Output Type--</option>
-        <option value="json">Json</option>
-        <option value="typescript">TypeScript</option>
-    </select>
-    <button id="generate">Generate</button>
+    <div class="tab-body body-active" id="body-1">
+        <input type="file" id="fileInput">
+        <input type="number" placeholder="Sprite Width" id="s-width" value="32">
+        <input type="number" placeholder="Sprite Height" id="s-height" value="32">
+        <input type="text" placeholder="Animation Name" id="a-name">
+        <input type="number" placeholder="Duration/Frame (ms)" id="dpf">
+        <select id="strategy">
+            <option value="" disabled selected>--Choose a Strategy--</option>
+            <option value="End">End</option>
+            <option value="Freeze">Freeze</option>
+            <option value="Loop">Loop</option>
+            <option value="PingPong">Pingpong</option>
+        </select>
+        <select id="output-type">
+            <option value="" disabled selected>--Choose an Output Type--</option>
+            <option value="json">Json</option>
+            <option value="typescript">TypeScript</option>
+        </select>
+        <button id="generate">Generate</button>
 
-    <div id="image"></div>
+        <div id="image"></div>
+    </div>
 
     <script src="animation-generator.js"></script>
-    <script src="animation-generate.js"></script>
+    <script src="generate-one.js"></script>
+    <script src="generate-all.js"></script>
+    <script src="add-tab.js"></script>
+    <script src="delete-tab.js"></script>
+    <script src="select-tab.js"></script>
 </body>
 </html>
