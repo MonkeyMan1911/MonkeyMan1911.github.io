@@ -64,4 +64,5 @@ button:hover, input:hover, select:hover, option:hover {
     align-self: center;
     height: 40px;
     font-weight: bold;
+    margin-right: 8px;
 }

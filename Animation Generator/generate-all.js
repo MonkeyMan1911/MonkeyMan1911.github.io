@@ -7,8 +7,7 @@ function generateAll() {
         const name = body.querySelector("#a-name").value
         const dpf = parseFloat(body.querySelector("#dpf").value)
         const strategy = body.querySelector("#strategy").value
-        const outputType = body.querySelector("#output-type").value
-        const inputs = [name, dpf, strategy, outputType]
+        const inputs = [name, dpf, strategy]
         
         const frames = JSON.parse(body.dataset.frames)
         frames.forEach(frame => {
@@ -26,18 +25,43 @@ function generateAll() {
         allAnimations[name] = animationData
     }
 
-    const jsonStr = JSON.stringify(allAnimations, null, 4)
-    const blob = new Blob([jsonStr], {type: "application/json"})
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "animationData.json"; 
-    document.body.appendChild(a);
-    a.click();
+    if (genAllBtn.value === "json") {
+        const jsonStr = JSON.stringify(allAnimations, null, 4)
+        const blob = new Blob([jsonStr], {type: "application/json"})
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "animationData.json"; 
+        document.body.appendChild(a);
+        a.click();
 
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    else {
+        // Build TypeScript code by looping animations
+        let tsCode = `// You can edit the duration of each frame if needed\n\n`
+
+        for (const [name, animationData] of Object.entries(allAnimations)) {
+            tsCode += `const ${name} = ex.Animation.fromSpriteSheetCoordinates({\n`
+            tsCode += `    spriteSheet: "REPLACE WITH YOUR SPRITESHEET",\n`
+            tsCode += `    durationPerFrame: ${animationData.durationPerFrame},\n`
+            tsCode += `    frameCoordinates: ${JSON.stringify(animationData.frameCoordinates, null, 8)},\n`
+            tsCode += `    strategy: AnimationStrategy.${animationData.strategy}\n`
+            tsCode += `})\n\n`
+        }
+
+        const blob = new Blob([tsCode], { type: "text/typescript" })
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement("a")
+        a.href = url
+        a.download = "animation.ts"
+        a.click()
+        URL.revokeObjectURL(url)
+    }
+
 }
 
 const genAllBtn = document.querySelector(".generate-all")
-genAllBtn.addEventListener("click", () => { generateAll() })
+genAllBtn.addEventListener("change", () => { generateAll() })
