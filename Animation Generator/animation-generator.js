@@ -210,14 +210,18 @@ currentName.addEventListener("input", () => {
     const activeTab = document.getElementById(`tab-${currentTabId}`)
     if (currentName.value) {
         activeTab.innerHTML = (`
-            ${currentName.value.slice(0, 16)}
-            <span class="close-tab" id="close-${currentTabId}" onclick="eventListenerContent(this)">x</span>
+            ${currentName.value.slice(0, 10)}
+            <span class="close-tab" id="close-${currentTabId}" onclick="eventListenerContent(this)">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#EA3323"><path d="m256-168-88-88 224-224-224-224 88-88 224 224 224-224 88 88-224 224 224 224-88 88-224-224-224 224Z"/></svg>
+            </span>
         `)
     }
     else {
         activeTab.innerHTML = (`
             Untitled
-            <span class="close-tab" id="close-${currentTabId}" onclick="eventListenerContent(this)">x</span>
+            <span class="close-tab" id="close-${currentTabId}" onclick="eventListenerContent(this)">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#EA3323"><path d="m256-168-88-88 224-224-224-224 88-88 224 224 224-224 88 88-224 224 224 224-88 88-224-224-224 224Z"/></svg>
+            </span>
         `)
     }
 })

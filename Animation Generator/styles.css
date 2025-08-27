@@ -30,16 +30,24 @@ button:hover, input:hover, select:hover, option:hover {
     display: flex;
     justify-content: space-around;
     align-items: center;
+
+    font-size: 16px;
 }
 
 .close-tab {
-    color: red;
-    font-weight: bold;
-    font-size: large;
+    align-self: center;
+    height: 24px;
+    padding: 2px;
+    border-radius: 100px;
 }
 .close-tab:hover {
-    color: white;
+    background-color: rgba(78, 78, 78, 0.452);
 }
+
+.close-tab svg {
+    margin-left: 1px;
+}
+
 
 .active {
     background-color: rgb(56, 56, 56);
@@ -47,13 +55,19 @@ button:hover, input:hover, select:hover, option:hover {
 }
 
 .add-tab {
-    font-size: 27px;
     border: none;
     background-color: transparent;
     color: whitesmoke;
+    justify-self: center;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    height: 24px;
+    padding: 0;
+    margin-left: 5px;
+    border-radius: 100px;
 }
 .add-tab:hover {
-    color: black;
+    background-color: rgba(78, 78, 78, 0.452);
 }
 
 .generate-all {
