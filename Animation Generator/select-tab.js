@@ -16,11 +16,7 @@ function changeTab(tab) {
 
         const newId = tab.id.split("-")[1]
         const newBody = document.getElementById(`body-${newId}`)
-        tab.classList.add("active")
-        tab.innerHTML = (`
-            Current Tab
-            <span class="close-tab" id="close-${newId}" onclick="eventListenerContent(this)">x</span>
-        `)
+        tab.classList.add("active") 
         newBody.classList.add("body-active")
         newBody.style.display = "block"
     }
