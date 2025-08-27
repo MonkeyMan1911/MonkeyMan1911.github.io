@@ -6,6 +6,7 @@
     <title>Document</title>
 
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="input-styles.css">
 </head>
 <body>
 
@@ -20,7 +21,9 @@
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M417-417H166v-126h251v-251h126v251h251v126H543v251H417v-251Z"/></svg>
         </button>
 
-
+        <button class="regen-all">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M202-279q-32-45-48.5-96T137-480q0-140 98-241.5T470-823h8l-49-49 67-66 178 178-178 178-67-66 49-49h-5q-87 0-148.5 63.5T263-480q0 29 7.5 56.5T293-370l-91 91ZM464-21 286-199l178-179 67 67-49 49h5q87 0 148.5-64T697-480q0-29-7.5-56.5T667-590l91-90q32 45 48.5 95.5T823-480q0 140-98 242T490-136h-8l49 48-67 67Z"/></svg>
+        </button>
         <select class="generate-all">
             <option value="" disabled selected>Generate All</option>
             <option value="json">Json</option>
@@ -30,8 +33,8 @@
 
     <div class="tab-body body-active" id="body-1">
         <input type="file" id="fileInput">
-        <input type="number" placeholder="Sprite Width" id="s-width" value="32">
-        <input type="number" placeholder="Sprite Height" id="s-height" value="32">
+        <input type="number" placeholder="Width" id="s-width" value="32">
+        <input type="number" placeholder="Height" id="s-height" value="32">
         <input type="text" placeholder="Animation Name" id="a-name">
         <input type="number" placeholder="Duration/Frame (ms)" id="dpf">
         <select id="strategy">

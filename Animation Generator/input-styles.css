@@ -1,0 +1,74 @@
+input {
+    padding: 0;
+    text-align: center;
+}
+
+
+.custom-duration-input {
+    border: 3px solid black;
+}
+
+#s-width, #s-height, #a-name, #dpf {
+    border: none;
+}
+
+#s-width:focus, #s-height:focus, #a-name:focus, #dpf:focus {
+    outline: none;
+}
+
+#s-width, #s-height {
+    width: 60px;
+}
+
+#fileInput::file-selector-button {
+    padding: 0;
+    border: none;
+}
+
+#fileInput {
+    height: 38px;
+}
+
+#generate {
+    padding: 0;
+    border: none;
+}
+
+input, select, #fileInput::file-selector-button, #generate {
+    height: 30px;
+    font-size: 15px;
+    padding: 4px;
+}
+
+#generate {
+    height: 38px;
+}
+
+select {
+    height: 39px;
+}
+
+.ok-btn, .cancel-btn {
+    border: none;
+    color: white;
+    height: 30px;
+    width: 80px;
+    border-radius: 20px;
+}
+.ok-btn {
+    background-color: rgb(3, 164, 3);
+}
+.cancel-btn {
+    background-color: rgb(228, 0, 0);
+}
+
+.regen-all {
+    border: none;
+    background-color: rgb(23, 212, 23);
+    position: absolute;
+    right: 0;
+    align-self: center;
+    height: 40px;
+    margin-right: 120px;
+    padding-top: 5px;
+}

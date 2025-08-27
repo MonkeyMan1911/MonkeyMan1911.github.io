@@ -67,3 +67,10 @@ function generateAll() {
 
 const genAllBtn = document.querySelector(".generate-all")
 genAllBtn.addEventListener("change", () => { generateAll() })
+
+const regenAll = document.querySelector(".regen-all")
+regenAll.addEventListener("click", () => {
+    if (genAllBtn.value) {
+        generateAll()
+    }
+})

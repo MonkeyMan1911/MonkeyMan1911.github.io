@@ -55,14 +55,66 @@ function drawPieces() {
     }
 } 
 
+function redrawAllBadges() {
+    const spriteWidth = Number(widthInput.value);
+    const spriteHeight = Number(heightInput.value);
+
+    // Loop through all canvases
+    output.querySelectorAll("canvas").forEach((canvas) => {
+        const ctx = canvas.getContext("2d");
+
+        // Clear + redraw sprite
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(
+            img,
+            canvas.dataset.x * spriteWidth,
+            canvas.dataset.y * spriteHeight,
+            spriteWidth,
+            spriteHeight,
+            0, 0, canvas.width, canvas.height
+        );
+
+        // If selected, draw badge with its current index
+        const frameIndex = frames.findIndex(
+            (f) => f.x === parseFloat(canvas.dataset.x) && f.y === parseFloat(canvas.dataset.y)
+        );
+
+        if (frameIndex > -1) {
+            const badgeSize = 16;
+            ctx.fillStyle = "rgba(0,0,0,0.6)";
+            ctx.fillRect(canvas.width - badgeSize, canvas.height - badgeSize, badgeSize, badgeSize);
+
+            ctx.fillStyle = "white";
+            ctx.font = "12px Arial";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(`${frameIndex}`, canvas.width - badgeSize / 2, canvas.height - badgeSize / 2);
+        }
+    });
+}
+
+
 // Toggle select/deselect
 function toggleSelection(canvas) {
+    const ctx = canvas.getContext("2d")
+
     if (canvas.dataset.selected === "false") {
         frames.push({ x: parseFloat(canvas.dataset.x), y: parseFloat(canvas.dataset.y) });
         canvas.style.backgroundColor = "blue";
         canvas.dataset.selected = "true";
         body.dataset.frames = JSON.stringify(frames)
-        console.log(canvas.dataset.duration)
+
+        const badgeSize = 16;
+        ctx.fillStyle = "rgba(0, 0, 0, 0.6)";  // semi-transparent dark background
+        ctx.fillRect(canvas.width - badgeSize, canvas.height - badgeSize, badgeSize, badgeSize);
+
+        ctx.fillStyle = "white";               // text color
+        ctx.font = "12px Arial";               // font size
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+            // Draw a character/number in the badge
+        ctx.fillText(`${frames.length - 1}`, canvas.width - badgeSize / 2, canvas.height - badgeSize / 2);
     } 
     else {
         const index = frames.findIndex(
@@ -71,9 +123,9 @@ function toggleSelection(canvas) {
         if (index > -1) { frames.splice(index, 1) };
         canvas.style.backgroundColor = "rgb(29, 29, 29)";
         canvas.dataset.selected = "false";
-        body.dataset.frames = JSON.stringify(frames)
+
+        redrawAllBadges()
     }
-    console.log(frames);
 }
 function customDuration(canvas) {
     function createOverlay(defaultValue = "") {
@@ -106,19 +158,29 @@ function customDuration(canvas) {
             input.placeholder = "Duration (ms)";
             input.style.marginBottom = "10px";
             input.style.width = "100%";
+            input.classList.add("custom-duration-input")
             if (defaultValue) input.value = defaultValue;
 
             const okBtn = document.createElement("button");
             okBtn.textContent = "OK";
             okBtn.style.marginRight = "10px";
+            okBtn.classList.add("ok-btn")
 
             const cancelBtn = document.createElement("button");
             cancelBtn.textContent = "Cancel";
+            cancelBtn.classList.add("cancel-btn")
 
             okBtn.onclick = () => {
                 document.body.removeChild(overlay);
                 resolve({ action: "ok", value: input.value });
             };
+
+            document.onkeydown = (event) => {
+                if (event.key === "Enter") {
+                    document.body.removeChild(overlay)
+                    resolve({ action: "ok", value: input.value })
+                }
+            }
 
             cancelBtn.onclick = () => {
                 document.body.removeChild(overlay);
@@ -138,6 +200,7 @@ function customDuration(canvas) {
     (async () => {
         const defaultVal = canvas.dataset.selected === "true" ? canvas.dataset.duration : "";
         const result = await createOverlay(defaultVal);
+        const ctx = canvas.getContext("2d")
 
         if (result.action === "ok" && result.value) {
             const index = frames.findIndex(
@@ -153,7 +216,8 @@ function customDuration(canvas) {
             canvas.style.backgroundColor = "red";
             canvas.dataset.selected = "true";
             console.log(frames)
-        } else if (result.action === "ok") {
+        } 
+        else if (result.action === "ok") {
             const index = frames.findIndex(
                 (f) => f.x === parseFloat(canvas.dataset.x) && f.y === parseFloat(canvas.dataset.y)
             );
@@ -165,7 +229,8 @@ function customDuration(canvas) {
             canvas.style.backgroundColor = "blue";
             canvas.dataset.selected = "true";
             console.log(frames);
-        } else if (result.action === "cancel" && canvas.dataset.selected !== "true") {
+        } 
+        else if (result.action === "cancel" && canvas.dataset.selected !== "true") {
             // first-time cancel = still add a frame
             const index = frames.findIndex(
                 (f) => f.x === parseFloat(canvas.dataset.x) && f.y === parseFloat(canvas.dataset.y)
@@ -179,6 +244,18 @@ function customDuration(canvas) {
             canvas.dataset.selected = "true";
             console.log(frames);
         }
+
+        const badgeSize = 16;
+        ctx.fillStyle = "rgba(0, 0, 0, 0.6)";  // semi-transparent dark background
+        ctx.fillRect(canvas.width - badgeSize, canvas.height - badgeSize, badgeSize, badgeSize);
+
+        ctx.fillStyle = "white";               // text color
+        ctx.font = "12px Arial";               // font size
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+            // Draw a character/number in the badge
+        ctx.fillText(`${frames.length - 1}`, canvas.width - badgeSize / 2, canvas.height - badgeSize / 2);
 
         body.dataset.frames = JSON.stringify(frames);
     })();
