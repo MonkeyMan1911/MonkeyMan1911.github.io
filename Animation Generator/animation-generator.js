@@ -5,6 +5,7 @@ const output = body.querySelector("#image");
 const widthInput = body.querySelector("#s-width");
 const heightInput = body.querySelector("#s-height"); 
 const generateButton = body.querySelector("#generate")
+const currentName = body.querySelector("#a-name")
 
 let img = null;
 let frames = [];
@@ -195,11 +196,32 @@ fileInput.addEventListener("change", (e) => {
 });
 
 // Re-draw when inputs change
-widthInput.addEventListener("input", drawPieces);
-heightInput.addEventListener("input", drawPieces);
-
+widthInput.addEventListener("input", () => {
+    if (widthInput.value) { drawPieces() }
+});
+heightInput.addEventListener("input", () => {
+    if (heightInput.value) { drawPieces() }
+});
 
 generateButton.addEventListener("click", () => { generateOne(body, frames) })
+
+currentName.addEventListener("input", () => {
+    const currentTabId = body.id.split("-")[1]
+    const activeTab = document.getElementById(`tab-${currentTabId}`)
+    if (currentName.value) {
+        activeTab.innerHTML = (`
+            ${currentName.value.slice(0, 16)}
+            <span class="close-tab" id="close-${currentTabId}" onclick="eventListenerContent(this)">x</span>
+        `)
+    }
+    else {
+        activeTab.innerHTML = (`
+            Untitled
+            <span class="close-tab" id="close-${currentTabId}" onclick="eventListenerContent(this)">x</span>
+        `)
+    }
+})
+
 }
 
 const startingBody = document.querySelector(".tab-body")

@@ -23,7 +23,7 @@ addTabBtn.addEventListener("click", () => {
     newTab.classList.add("active")
     newTab.id = `tab-${newTabNumber}`
     newTab.innerHTML = (`
-        New Tab
+        Untitled
         <span class="close-tab" id="close-${newTabNumber}" onclick="eventListenerContent(this)">x</span>
     `)
     tabEventListener(newTab)
