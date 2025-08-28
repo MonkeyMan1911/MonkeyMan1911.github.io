@@ -3,7 +3,9 @@ Array.from(xButtons).forEach(button => {
     xButtonEventListener(button)
 })
 function xButtonEventListener(xButton) {
-    xButton.addEventListener("click", () => { eventListenerContent(xButton) })
+    xButton.addEventListener("click", () => { 
+        eventListenerContent(xButton) 
+    })
 }
 function eventListenerContent(xButton) {
     const idNumber = xButton.id.split("-")[1]
@@ -16,7 +18,7 @@ function eventListenerContent(xButton) {
         activeTab.classList.add("active")
         const activeBody = document.getElementById(`body-${activeTab.id.split("-")[1]}`)
         activeBody.classList.add("body-active")
-        activeBody.style.display = "block"
+        activeBody.style.display = "inline-block"
     }
 
     document.querySelector(".tab-manager").removeChild(tabToDelete)

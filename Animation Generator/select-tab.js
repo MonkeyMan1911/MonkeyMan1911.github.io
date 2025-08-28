@@ -3,7 +3,11 @@ Array.from(tabs).forEach(tab => {
     tabEventListener(tab)
 })
 function tabEventListener(tab) {
-    tab.addEventListener("click", () => { changeTab(tab) })
+    tab.addEventListener("click", (event) => { 
+        if (event.target === tab) {
+            changeTab(tab)
+        }
+     })
 }
 function changeTab(tab) {
     if (!tab.classList.contains("active")) {
@@ -18,6 +22,6 @@ function changeTab(tab) {
         const newBody = document.getElementById(`body-${newId}`)
         tab.classList.add("active") 
         newBody.classList.add("body-active")
-        newBody.style.display = "block"
+        newBody.style.display = "inline-block"
     }
 }
