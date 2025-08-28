@@ -7,5 +7,6 @@
   * To select a frame and assign a custom duration to it right click the frame if done successfully the frame's background should turn red.  
   * Fill in the other inputs in the tab.  
   * To generate multiple animations create new tabs and repeat the above steps then press generate all or the re-gen button next to it if you have already done so.  
-  * To generate one animtaion use the generate button located on the tab of the animation.  
+  * To generate one animtaion use the generate button located on the tab of the animation.
+  * __NOTE: Generating WILL NOT WORK if you are missing inputs__
   * [Animation Generator](https://monkeyman1911.github.io/animation-generator.html)
