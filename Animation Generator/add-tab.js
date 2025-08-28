@@ -3,20 +3,30 @@ addTabBtn.addEventListener("click", () => {
     // Get last tab number for new tab
     const tabs = document.querySelectorAll(".tab")
     let lastTabNumber = 0
-    Array.from(tabs).forEach(tab => {
-        const num = tab.id.split("-")
-        if (Number(num[1]) > lastTabNumber) {
-            lastTabNumber = Number(num[1])
-        }
-    })  
+
+    const tabsArray = Array.from(tabs)
+    if (tabsArray.length > 0) {
+        tabsArray.forEach(tab => {
+            const num = tab.id.split("-")
+            if (Number(num[1]) > lastTabNumber) {
+                lastTabNumber = Number(num[1])
+            }
+        })  
+
+        // Deactivate old tab
+        const currentTab = document.querySelector(".active")
+        currentTab.classList.remove("active")
+        const currentTabIdNum = currentTab.id.split("-")[1]
+
+        // Hide other tab body
+        const currentTabBody = document.getElementById(`body-${currentTabIdNum}`)
+        currentTabBody.classList.remove("body-active")
+        currentTabBody.style.display = "none"
+    }
+
     const newTabNumber = lastTabNumber + 1
 
-    // Deactivate old tab
-    const currentTab = document.querySelector(".active")
-    currentTab.classList.remove("active")
-    const currentTabIdNum = currentTab.id.split("-")[1]
-
-    // Create new tab
+    // Create new tab and body
     const tabManager = document.querySelector(".tab-manager")
     const newTab = document.createElement("button")
     newTab.classList.add("tab")
@@ -30,11 +40,6 @@ addTabBtn.addEventListener("click", () => {
     `)
     tabEventListener(newTab)
     tabManager.insertBefore(newTab, addTabBtn)
-
-    // Hide other tab body and show new one 
-    const currentTabBody = document.getElementById(`body-${currentTabIdNum}`)
-    currentTabBody.classList.remove("body-active")
-    currentTabBody.style.display = "none"
 
     const newTabBody = document.createElement("div")
     newTabBody.classList.add("tab-body")
