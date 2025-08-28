@@ -6,6 +6,7 @@ const widthInput = body.querySelector("#s-width");
 const heightInput = body.querySelector("#s-height"); 
 const generateButton = body.querySelector("#generate")
 const currentName = body.querySelector("#a-name")
+const deselectBtn = body.querySelector("#deselect-all")
 
 let img = null;
 let frames = [];
@@ -301,6 +302,23 @@ currentName.addEventListener("input", () => {
             </span>
         `)
     }
+})
+
+deselectBtn.addEventListener("click", () => {
+    if (frames.length === 0) { return }
+
+    const allCanvases = Array.from(output.children)
+    allCanvases.forEach(canvas => {
+        const point = { x: parseFloat(canvas.dataset.x), y: parseFloat(canvas.dataset.y) }
+        const index = frames.findIndex(
+            (f) => f.x === point.x && f.y === point.y
+        );
+        if (index > -1) { frames.splice(index, 1) };
+        canvas.style.backgroundColor = "rgb(29, 29, 29)";
+        canvas.dataset.selected = "false";
+
+        redrawAllBadges()
+    })
 })
 
 }

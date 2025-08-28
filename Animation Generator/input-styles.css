@@ -72,3 +72,9 @@ select {
     margin-right: 120px;
     padding-top: 5px;
 }
+
+#deselect-all {
+    height: 38px;
+    padding: 4px;
+    font-size: 15px;
+}

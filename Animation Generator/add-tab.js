@@ -59,7 +59,7 @@ addTabBtn.addEventListener("click", () => {
             <option value="typescript">TypeScript</option>
         </select>
         <button id="generate">Generate</button>
-
+        <button id="deselect-all">Deselect All</button>
         <div id="image"></div>
     `)
     document.body.insertBefore(newTabBody, document.querySelector(".instructions"))
