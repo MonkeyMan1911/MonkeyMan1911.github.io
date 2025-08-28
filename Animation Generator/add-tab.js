@@ -62,7 +62,7 @@ addTabBtn.addEventListener("click", () => {
 
         <div id="image"></div>
     `)
-    document.body.appendChild(newTabBody)
+    document.body.insertBefore(newTabBody, document.querySelector(".instructions"))
     
     init(newTabBody)
 })
